@@ -13,35 +13,62 @@ From a technical point of view, we leverage deterministic equivalence as the key
 
 ![Introduction Figure](intro_figure.png?raw=true)
 
+## Project Overview
+
+This repository contains the implementation and analysis for our research on norm-based capacity control in machine learning. The project explores how model norms (rather than parameter counts) govern generalization behavior, with a focus on Random Feature Ridge Regression (RFRR) as a theoretical model for understanding deep networks.
 
 ## Project Structure
-
-This project implements and analyzes Random Feature Ridge Regression (RFRR) for real-world datasets and Gaussian design scenarios. The project includes implementations for both theoretical analysis and practical applications.
 
 ```
 .
 ├── src/
-│   ├── RFRR_real_world/        # Real-world dataset implementations
-│   │   ├── RFRR.py             # Main 
-│   │   ├── utils.py            # Utility functions
-│   │   ├── models.py           # Model definitions
-│   │   ├── DE_utils.py         # Deterministic equivalent utilities
-│   │   └── visualize_intro_figure.py  # Visualization tools
+│   ├── RFRR_real_world/           # Real-world dataset implementations
+│   │   ├── main.py                # Main execution script
+│   │   ├── models.py              # Model definitions
+│   │   ├── model_utils.py         # Model utility functions
+│   │   ├── utils.py               # General utility functions
+│   │   ├── DE_utils.py            # Deterministic equivalent utilities
+│   │   ├── visualize_intro_figure.py  # Visualization tools
+│   │   ├── config.json            # Configuration file
+│   │   ├── data/                  # Dataset storage
+│   │   └── results/               # Experiment results
 │   │
-│   └── gaussian_design/        # Gaussian design implementations
-│       ├── ridge_regression/   # linear ridge regression
-│       └── random_feature_ridge_regression/  # Random feature ridge regression with gaussian design
+│   ├── Gaussian_design/           # Gaussian design implementations
+│   │   ├── ridge_regression/      # Linear ridge regression
+│   │   │   ├── ridge_regression.py
+│   │   │   └── visualize.py
+│   │   └── random_feature_ridge_regression/  # RFRR with Gaussian design
+│   │       ├── random_feature_ridge_regression.py
+│   │       └── visualize.py
+│   │
+│   └── Deep_NNs/                  # Deep neural network experiments
+│       ├── deep_double_descent_ResNet18.py    # ResNet18 double descent
+│       ├── mnist1d_deep_double_descent_cnn.py # CNN on MNIST-1D
+│       ├── mnist1d_deep_double_descent_mlp.py # MLP on MNIST-1D
+│       ├── saved_models_cnn/      # Pre-trained CNN models
+│       ├── saved_models_mlp/      # Pre-trained MLP models
+│       └── saved_models_ResNet/   # Pre-trained ResNet models
 │
-├── requirements.txt            # Project dependencies
-└── README.md                   # This file
+├── requirements.txt               # Project dependencies
+└── README.md                     # This file
 ```
 
+## Key Features
 
+### 1. Random Feature Ridge Regression (RFRR)
+- Implementation of RFRR for real-world datasets (MNIST)
+- Deterministic equivalent analysis for theoretical insights
+- Norm-based capacity control analysis
 
-## Features
+### 2. Gaussian Design Analysis
+- Linear ridge regression with Gaussian design
+- Random feature ridge regression with theoretical guarantees
+- Visualization tools for learning curves
 
-- Implementation of Random Feature Ridge Regression (RFRR)
-- Support for real-world datasets (MNIST, FashionMNIST, CIFAR-10, SVHN)
+### 3. Deep Neural Network Experiments
+- Double descent analysis on ResNet18
+- MNIST-1D experiments with CNNs and MLPs
+- Comprehensive model capacity studies
 
 ## Installation
 
@@ -63,7 +90,8 @@ pip install -r requirements.txt
 To run the RFRR analysis on MNIST dataset:
 
 ```bash
-python src/RFRR_real_world/RFRR_MNIST.py --dataset MNIST --device cpu
+cd src/RFRR_real_world
+python main.py --dataset MNIST --device cpu
 ```
 
 ### Gaussian Design Analysis
